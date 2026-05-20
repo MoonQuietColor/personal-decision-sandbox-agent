@@ -1,0 +1,15 @@
+{
+  "name": "Personal Decision Sandbox Agent",
+  "short_name": "Decision Sandbox",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#080b12",
+  "theme_color": "#78f5d0",
+  "icons": [
+    {
+      "src": "assets/logo.svg",
+      "sizes": "128x128",
+      "type": "image/svg+xml"
+    }
+  ]
+}

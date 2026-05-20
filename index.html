@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Personal Decision Sandbox Agent: AI 个人决策沙盘，模拟学习、项目、竞赛与成长路径。" />
+    <title>Personal Decision Sandbox Agent</title>
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+    <main class="shell">
+      <nav class="topbar" aria-label="主导航">
+        <a class="brand" href="#top" aria-label="返回首页">
+          <img src="assets/logo.svg" alt="" />
+          <span>Decision Sandbox</span>
+        </a>
+        <div class="nav-actions">
+          <a href="#sandbox">启动推演</a>
+          <a href="#agents">Agent Council</a>
+          <a href="#roadmap">Roadmap</a>
+        </div>
+      </nav>
+
+      <section id="top" class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">AI Personal Growth · Project Planning · Risk Simulation</p>
+          <h1>AI 个人决策沙盘 Agent</h1>
+          <p class="lead">
+            把目标、时间、资源、能力短板和风险偏好转化为可推演的成长模拟系统。
+            它不是普通 To-do List，而是一个面向学习、竞赛、科研和个人项目的低成本决策实验室。
+          </p>
+          <div class="hero-buttons">
+            <a class="primary-btn" href="#sandbox">开始一次决策推演</a>
+            <button class="ghost-btn" id="loadExampleBtn" type="button">载入创意示例</button>
+          </div>
+          <div class="stats-row" role="list" aria-label="产品亮点">
+            <div role="listitem"><strong>5</strong><span>个子 Agent 协作</span></div>
+            <div role="listitem"><strong>4</strong><span>条策略路径</span></div>
+            <div role="listitem"><strong>0</strong><span>后端依赖，可离线运行</span></div>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="沙盘概念卡片">
+          <div class="terminal-dots"><span></span><span></span><span></span></div>
+          <pre id="heroTerminal">目标：三周内完成一个科研竞赛 Demo
+约束：8GB 显存 / 每天 2 小时 / 初学者
+
+Agent Council 正在推演：
+- Planner: 拆解路径
+- Critic: 找失败点
+- Resource: 算资源账
+- Executor: 生成任务
+- Reviewer: 复盘调整</pre>
+        </div>
+      </section>
+
+      <section class="concept-grid" aria-label="核心创新点">
+        <article>
+          <span>01</span>
+          <h2>把选择变成可模拟对象</h2>
+          <p>先模拟不同选择的后果，再真正投入时间、金钱和精力。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>多 Agent 质询机制</h2>
+          <p>不只给鼓励，还会主动找漏洞、算资源、压缩范围。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>面向执行闭环</h2>
+          <p>输出路径、风险、任务、复盘规则和可导出的计划文本。</p>
+        </article>
+      </section>
+
+      <section id="sandbox" class="workspace">
+        <div class="section-heading">
+          <p class="eyebrow">Sandbox Input</p>
+          <h2>输入你的目标与现实约束</h2>
+          <p>这个原型使用本地规则引擎推演，不上传任何数据。后续可接入大模型 API 或本地小模型。</p>
+        </div>
+
+        <div class="workspace-grid">
+          <form id="decisionForm" class="panel input-panel">
+            <label>
+              <span>你的目标</span>
+              <textarea id="goal" rows="5" placeholder="例如：一个月内做出 AI 个人决策沙盘 Demo，用于网站申请和 GitHub 展示。"></textarea>
+            </label>
+
+            <div class="two-col">
+              <label>
+                <span>截止日期</span>
+                <input id="deadline" type="date" />
+              </label>
+              <label>
+                <span>每天可投入时间</span>
+                <input id="hours" type="number" min="0.5" max="16" step="0.5" value="2" />
+              </label>
+            </div>
+
+            <div class="two-col">
+              <label>
+                <span>当前能力水平</span>
+                <select id="skill">
+                  <option value="beginner">初学者：需要清晰步骤</option>
+                  <option value="intermediate">中级：能改代码和调试</option>
+                  <option value="advanced">高级：可独立架构</option>
+                </select>
+              </label>
+              <label>
+                <span>风险偏好</span>
+                <select id="risk">
+                  <option value="low">低风险：稳定完成优先</option>
+                  <option value="medium" selected>中风险：成果和创新平衡</option>
+                  <option value="high">高风险：冲击亮点优先</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              <span>可用资源</span>
+              <input id="resources" type="text" value="个人电脑、AI Coding、浏览器、GitHub Pages" />
+            </label>
+
+            <fieldset>
+              <legend>目标场景</legend>
+              <div class="chip-group">
+                <label><input type="checkbox" name="scenario" value="competition" checked /> 科研竞赛</label>
+                <label><input type="checkbox" name="scenario" value="coding" checked /> Coding 项目</label>
+                <label><input type="checkbox" name="scenario" value="study" /> 课程学习</label>
+                <label><input type="checkbox" name="scenario" value="career" /> 职业规划</label>
+                <label><input type="checkbox" name="scenario" value="research" /> 科研入门</label>
+              </div>
+            </fieldset>
+
+            <div class="form-actions">
+              <button class="primary-btn" type="submit">生成沙盘推演</button>
+              <button class="ghost-btn" id="resetBtn" type="button">清空</button>
+            </div>
+          </form>
+
+          <aside class="panel score-panel" aria-label="推演总览">
+            <div class="score-ring" id="scoreRing" style="--score: 74">
+              <span id="mainScore">74</span>
+            </div>
+            <h3 id="scoreTitle">等待生成推演</h3>
+            <p id="scoreText">填写左侧信息后，系统会估算可行性、风险水平、资源缺口和推荐路径。</p>
+            <div class="mini-metrics">
+              <div><span id="metricTime">-</span><small>可用小时</small></div>
+              <div><span id="metricRisk">-</span><small>风险等级</small></div>
+              <div><span id="metricMode">-</span><small>推荐模式</small></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="results" aria-live="polite">
+        <div class="section-heading">
+          <p class="eyebrow">Simulation Output</p>
+          <h2>四条可选路径</h2>
+        </div>
+        <div class="strategy-grid" id="strategyGrid"></div>
+      </section>
+
+      <section id="agents" class="agents panel">
+        <div class="section-heading inline">
+          <div>
+            <p class="eyebrow">Agent Council</p>
+            <h2>多 Agent 协作结论</h2>
+          </div>
+          <button class="ghost-btn small" id="copyMarkdownBtn" type="button">复制 Markdown</button>
+        </div>
+        <div class="agent-grid" id="agentGrid"></div>
+      </section>
+
+      <section id="roadmap" class="roadmap-section">
+        <div class="section-heading">
+          <p class="eyebrow">Roadmap & Risk</p>
+          <h2>执行路线图与风险雷达</h2>
+        </div>
+        <div class="roadmap-layout">
+          <div class="panel">
+            <h3>阶段路线图</h3>
+            <ol class="timeline" id="timeline"></ol>
+          </div>
+          <div class="panel">
+            <h3>风险雷达</h3>
+            <div id="riskRadar" class="risk-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel export-panel">
+        <div>
+          <p class="eyebrow">Export</p>
+          <h2>导出你的计划</h2>
+          <p>可复制给 AI Coding 工具，或作为 GitHub README / 项目申请文本的素材。</p>
+        </div>
+        <div class="export-actions">
+          <button class="ghost-btn" id="downloadJsonBtn" type="button">下载 JSON</button>
+          <button class="primary-btn" id="downloadMarkdownBtn" type="button">下载 Markdown</button>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Personal Decision Sandbox Agent</span>
+        <span>Designed for students, indie makers and research beginners.</span>
+      </footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
