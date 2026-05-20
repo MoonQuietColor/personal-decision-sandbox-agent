@@ -162,13 +162,9 @@ personal-decision-sandbox-agent/
 
 ---
 
-## 8. 适合填写到网站申请中的简介
 
-> I am building a Personal Decision Sandbox Agent, an AI-powered simulation workspace that helps students and independent creators evaluate goals before investing real time and resources. Instead of simply generating a to-do list, it transforms personal constraints such as time, skills, tools, risk tolerance and deadlines into multiple possible execution paths. A group of role-based agents, including Planner, Critic, Resource, Executor and Reviewer, collaboratively analyzes feasibility, exposes hidden risks and generates actionable roadmaps. The project aims to become a lightweight personal strategy lab for learning, competitions, career planning and early-stage project development.
 
----
-
-## 9. 后续计划
+## 8. 后续计划
 
 - 接入真实大模型 API，生成更自然的 Agent 推演文本；
 - 增加历史记录和多次复盘对比；
@@ -179,6 +175,6 @@ personal-decision-sandbox-agent/
 
 ---
 
-## 10. License
+## 9. License
 
 MIT License
