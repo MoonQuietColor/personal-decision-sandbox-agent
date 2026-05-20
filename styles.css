@@ -312,3 +312,276 @@ fieldset { border: 1px solid var(--line); border-radius: 22px; padding: 18px; }
   .concept-grid, .strategy-grid, .agent-grid, .two-col, .stats-row { grid-template-columns: 1fr; }
   .export-panel, .footer, .section-heading.inline { flex-direction: column; align-items: flex-start; }
 }
+
+/* --- 第二代优化新增样式 --- */
+
+/* Range Slider 样式美化 */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+  margin: 12px 0;
+  padding: 0;
+  border: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(120, 245, 208, 0.6);
+  transition: transform 0.1s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(120, 245, 208, 0.6);
+  transition: transform 0.1s ease;
+}
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+.label-with-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.label-with-value strong {
+  color: var(--accent);
+}
+.label-with-value small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* API Settings 折叠面板 */
+.api-settings-details {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 22px;
+  padding: 14px 18px;
+  margin: 10px 0;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+.api-settings-details[open] {
+  background: rgba(255, 255, 255, 0.06);
+}
+.api-settings-details summary {
+  font-weight: 750;
+  cursor: pointer;
+  color: var(--accent-2);
+  outline: none;
+  user-select: none;
+}
+.api-settings-details summary:hover {
+  color: var(--accent);
+}
+.api-settings-content {
+  padding-top: 14px;
+  display: grid;
+  gap: 14px;
+}
+.toggle-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 600;
+}
+.toggle-container input {
+  width: auto;
+  cursor: pointer;
+}
+.api-inputs {
+  display: grid;
+  gap: 10px;
+  transition: opacity 0.3s ease;
+}
+.api-inputs.disabled {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* SVG 雷达图 */
+.radar-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+  margin: 14px auto;
+  aspect-ratio: 1.1;
+}
+#radarSvg {
+  overflow: visible;
+}
+.radar-grid-line {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1;
+}
+.radar-axis-line {
+  stroke: rgba(255, 255, 255, 0.25);
+  stroke-width: 1.2;
+}
+.radar-polygon-bg {
+  fill: rgba(255, 255, 255, 0.02);
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1;
+}
+.radar-polygon-data {
+  fill: rgba(120, 245, 208, 0.16);
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 6px rgba(120, 245, 208, 0.4));
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.radar-point {
+  fill: #080b12;
+  stroke: var(--accent);
+  stroke-width: 2;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.radar-label {
+  fill: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+/* Agent 辩论对话流 */
+.debate-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(4, 8, 16, 0.3);
+  border: 1px solid var(--line);
+  margin-top: 18px;
+  scroll-behavior: smooth;
+}
+.debate-bubble {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: slideInBubble 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  max-width: 85%;
+  align-self: flex-start;
+}
+
+@keyframes slideInBubble {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 各个 Agent 独有发光属性 */
+.debate-bubble.planner {
+  border-left: 5px solid var(--accent-2);
+  border-color: rgba(141, 162, 255, 0.3) rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.08) var(--accent-2);
+  box-shadow: 0 0 15px rgba(141, 162, 255, 0.06);
+}
+.debate-bubble.critic {
+  border-left: 5px solid var(--danger);
+  border-color: rgba(255, 179, 179, 0.3) rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.08) var(--danger);
+  box-shadow: 0 0 15px rgba(255, 179, 179, 0.06);
+}
+.debate-bubble.resource {
+  border-left: 5px solid var(--warning);
+  border-color: rgba(255, 213, 141, 0.3) rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.08) var(--warning);
+  box-shadow: 0 0 15px rgba(255, 213, 141, 0.06);
+}
+.debate-bubble.executor {
+  border-left: 5px solid var(--accent);
+  border-color: rgba(120, 245, 208, 0.3) rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.08) var(--accent);
+  box-shadow: 0 0 15px rgba(120, 245, 208, 0.06);
+}
+.debate-bubble.reviewer {
+  border-left: 5px solid #d09bff;
+  border-color: rgba(208, 155, 255, 0.3) rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.08) #d09bff;
+  box-shadow: 0 0 15px rgba(208, 155, 255, 0.06);
+}
+
+.debate-bubble .agent-avatar {
+  font-size: 26px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+}
+.debate-bubble .bubble-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.debate-bubble .agent-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.debate-bubble .agent-name {
+  font-weight: 850;
+  font-size: 14px;
+  color: var(--text);
+}
+.debate-bubble .agent-title {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+.debate-bubble .bubble-text {
+  line-height: 1.6;
+  font-size: 14px;
+  color: #e2ecfc;
+}
+.debate-bubble ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.debate-bubble li {
+  margin-bottom: 2px;
+}
+
+.agent-controls {
+  display: flex;
+  gap: 8px;
+}
+.radar-panel {
+  display: flex;
+  flex-direction: column;
+}
+

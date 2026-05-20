@@ -91,12 +91,12 @@ Agent Council 正在推演：
 
             <div class="two-col">
               <label>
-                <span>截止日期</span>
+                <span class="label-with-value">截止日期 <small id="daysLeftVal">(还剩 30 天)</small></span>
                 <input id="deadline" type="date" />
               </label>
               <label>
-                <span>每天可投入时间</span>
-                <input id="hours" type="number" min="0.5" max="16" step="0.5" value="2" />
+                <span class="label-with-value">每天可投入时间: <strong id="hoursVal">2</strong> 小时</span>
+                <input id="hours" type="range" min="0.5" max="16" step="0.5" value="2" />
               </label>
             </div>
 
@@ -135,6 +135,30 @@ Agent Council 正在推演：
               </div>
             </fieldset>
 
+            <details class="api-settings-details">
+              <summary>🤖 大模型 API 设置 (选填)</summary>
+              <div class="api-settings-content">
+                <label class="toggle-container">
+                  <input type="checkbox" id="apiEnable" />
+                  <span>启用云端 AI 推演</span>
+                </label>
+                <div class="api-inputs" id="apiInputs">
+                  <label>
+                    <span>API Base URL</span>
+                    <input id="apiUrl" type="text" placeholder="https://api.deepseek.com/v1" value="https://api.deepseek.com/v1" />
+                  </label>
+                  <label>
+                    <span>API Key</span>
+                    <input id="apiKey" type="password" placeholder="sk-..." />
+                  </label>
+                  <label>
+                    <span>模型名称 (Model)</span>
+                    <input id="apiModel" type="text" placeholder="deepseek-chat" value="deepseek-chat" />
+                  </label>
+                </div>
+              </div>
+            </details>
+
             <div class="form-actions">
               <button class="primary-btn" type="submit">生成沙盘推演</button>
               <button class="ghost-btn" id="resetBtn" type="button">清空</button>
@@ -168,11 +192,18 @@ Agent Council 正在推演：
         <div class="section-heading inline">
           <div>
             <p class="eyebrow">Agent Council</p>
-            <h2>多 Agent 协作结论</h2>
+            <h2>Agent 辩论联席会</h2>
           </div>
-          <button class="ghost-btn small" id="copyMarkdownBtn" type="button">复制 Markdown</button>
+          <div class="agent-controls">
+            <button class="ghost-btn small" id="replayDebateBtn" type="button">🔁 重新播放辩论</button>
+            <button class="ghost-btn small" id="skipDebateBtn" type="button">⏭️ 跳过动画</button>
+            <button class="ghost-btn small" id="copyMarkdownBtn" type="button">复制 Markdown</button>
+          </div>
         </div>
-        <div class="agent-grid" id="agentGrid"></div>
+        <div class="debate-container" id="debateContainer">
+          <!-- 动态发言气泡在这里渲染 -->
+        </div>
+        <div class="agent-grid" id="agentGrid" style="display: none;"></div>
       </section>
 
       <section id="roadmap" class="roadmap-section">
@@ -185,8 +216,11 @@ Agent Council 正在推演：
             <h3>阶段路线图</h3>
             <ol class="timeline" id="timeline"></ol>
           </div>
-          <div class="panel">
+          <div class="panel radar-panel">
             <h3>风险雷达</h3>
+            <div class="radar-chart-container">
+              <svg id="radarSvg" viewBox="0 0 400 360" width="100%" height="100%"></svg>
+            </div>
             <div id="riskRadar" class="risk-list"></div>
           </div>
         </div>
@@ -199,6 +233,7 @@ Agent Council 正在推演：
           <p>可复制给 AI Coding 工具，或作为 GitHub README / 项目申请文本的素材。</p>
         </div>
         <div class="export-actions">
+          <button class="ghost-btn" id="sharePlanBtn" type="button">🔗 复制分享链接</button>
           <button class="ghost-btn" id="downloadJsonBtn" type="button">下载 JSON</button>
           <button class="primary-btn" id="downloadMarkdownBtn" type="button">下载 Markdown</button>
         </div>
